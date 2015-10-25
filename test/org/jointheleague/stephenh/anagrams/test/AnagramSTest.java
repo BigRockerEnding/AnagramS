@@ -1,8 +1,13 @@
 package org.jointheleague.stephenh.anagrams.test;
 
 import static org.junit.Assert.*;
+import static org.jointheleague.stephenh.anagrams.AnagramS.*;
 
-import static org.jointheleague.stephenh.anagrams.AnagramS.isAnagram;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jointheleague.stephenh.anagrams.AnagramS;
 import org.junit.Test;
 
 public class AnagramSTest {
@@ -21,5 +26,16 @@ public class AnagramSTest {
 		assertFalse(isAnagram(null, null));
 		assertFalse(isAnagram("thisthing", "this thing"));
 	}
-
+	
+	@Test
+	public void testloader() {
+		List<String> loadedList = new ArrayList<String>();
+		try {
+			loadedList = new AnagramS().LoadAnagrams();
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("loadAnagrams threw an IOException");
+		}
+		assertTrue(loadedList.size() > 0);
+	}
 }
